@@ -7,6 +7,28 @@ DerivedData/
 *.moved-aside
 *.xcworkspace/contents.xcworkspacedata
 *.xcworkspace/xcshareddata/
+xcuserdata/
+*.xcarchive
+
+# Swift Package Manager
+.swiftpm/
+.build/
+Package.resolved
+
+# Supabase Keys
+Secrets.swift
+.supabase/
+
+# Environment files
+.env
+*.env
+
+# Logs
+*.log
 
 # macOS
 .DS_Store
+
+# Swift playgrounds
+timeline.xctimeline
+playground.xcworkspace
