@@ -1,10 +1,3 @@
-//
-//  BlockByBlockApp.swift
-//  BlockByBlock
-//
-//  Created by Dabian  on 10/27/25.
-//
-
 import SwiftUI
 
 @main
