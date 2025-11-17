@@ -16,8 +16,9 @@ struct LoginView: View {
             VStack(spacing: 40) {
                 Spacer()
                 
+            
                 Text("Block by Block")
-                    .font(.custom("PressStart2P-Regular", size: 28))
+                    .font(.custom("Mojangles", size: 28))
                     .multilineTextAlignment(.center)
                     .padding(.top, 40)
                 
@@ -69,6 +70,7 @@ struct LoginView: View {
                 Spacer()
             }
         }
+        
     }
 }
 

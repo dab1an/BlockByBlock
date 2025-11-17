@@ -18,8 +18,7 @@ struct SignUpView: View {
             Spacer()
 
             Text("Block by Block")
-            // Need to import mojangles.otf into xcode and put it here. will finish later
-                .font(.custom("PressStart2P-Regular", size: 28))
+                .font(.custom("Mojangles", size: 28))
                 .multilineTextAlignment(.center)
                 .padding(.top, 40)
 

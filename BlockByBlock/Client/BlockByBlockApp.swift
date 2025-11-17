@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct BlockByBlockApp: App {
+    init() {
+        FontLoader.loadCustomFonts()
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
