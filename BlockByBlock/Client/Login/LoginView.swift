@@ -8,15 +8,16 @@
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var authController: AuthController
     @State private var email: String = ""
     @State private var password: String = ""
+    @State private var isLoading: Bool = false
 
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             VStack(spacing: 40) {
                 Spacer()
                 
-            
                 Text("Block by Block")
                     .font(.custom("Mojangles", size: 28))
                     .multilineTextAlignment(.center)
@@ -30,6 +31,8 @@ struct LoginView: View {
                             .padding()
                             .background(Color(.systemGray6))
                             .cornerRadius(12)
+                            .textInputAutocapitalization(.never)
+                            .keyboardType(.emailAddress)
                     }
                     
                     VStack(alignment: .leading, spacing: 8) {
@@ -40,16 +43,29 @@ struct LoginView: View {
                             .background(Color(.systemGray6))
                             .cornerRadius(12)
                     }
-                    
-                    Button(action: {}) {
-                        Text("Sign In")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color(.darkGray))
-                            .foregroundColor(.white)
-                            .cornerRadius(12)
+                    // call authcontroller sign in
+                    Button(action: {
+                        Task {
+                            isLoading = true
+                            await authController.signIn(email: email, password: password)
+                            isLoading = false
+                        }
+                    }) {
+                        if isLoading {
+                            ProgressView()
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                        } else {
+                            Text("Sign In")
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                        }
                     }
-                    
+                    .background(Color(.darkGray))
+                    .foregroundColor(.white)
+                    .cornerRadius(12)
+                    .disabled(isLoading)
+                    // navigate to signup view
                     NavigationLink(destination: SignUpView()) {
                         Text("Sign Up")
                             .frame(maxWidth: .infinity)
@@ -58,7 +74,6 @@ struct LoginView: View {
                             .foregroundColor(.black)
                             .cornerRadius(12)
                     }
-
                 }
                 .padding()
                 .background(
@@ -70,10 +85,10 @@ struct LoginView: View {
                 Spacer()
             }
         }
-        
     }
 }
 
 #Preview {
     LoginView()
+        .environmentObject(AuthController())
 }

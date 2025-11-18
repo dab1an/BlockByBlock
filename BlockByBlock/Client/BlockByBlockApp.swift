@@ -9,12 +9,16 @@ import SwiftUI
 
 @main
 struct BlockByBlockApp: App {
+    @StateObject private var authController = AuthController()
+    // load fonts onto app launch
     init() {
         FontLoader.loadCustomFonts()
     }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(authController)
         }
     }
 }
