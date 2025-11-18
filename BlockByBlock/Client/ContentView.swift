@@ -8,17 +8,43 @@
 import SwiftUI
 
 struct ContentView: View {
+    // intialize auth controller
+    @EnvironmentObject var authController: AuthController
+    
+    var body: some View {
+        Group {
+            if authController.session != nil {
+                MainAppView()
+            } else {
+                LoginView()
+            }
+        }
+    }
+}
+
+
+struct MainAppView: View {
+    @EnvironmentObject var authController: AuthController
+    //boiler plate landing page
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Text("Welcome, \(authController.profile?.displayName ?? "User")!")
+                .font(.largeTitle)
+            
+            Button("Sign Out") {
+                Task {
+                    await authController.signOut()
+                }
+            }
+            .padding()
+            .background(Color.red)
+            .foregroundColor(.white)
+            .cornerRadius(12)
         }
-        .padding()
     }
 }
 
 #Preview {
     ContentView()
+        .environmentObject(AuthController())
 }

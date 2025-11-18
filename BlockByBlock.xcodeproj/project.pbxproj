@@ -19,9 +19,22 @@
 		192C01322EB065B1003C21DF /* BlockByBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlockByBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		2A96833A2ECBC0AD00A68336 /* Exceptions for "BlockByBlock" folder in "BlockByBlock" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 192C01312EB065B1003C21DF /* BlockByBlock */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		192C01342EB065B1003C21DF /* BlockByBlock */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2A96833A2ECBC0AD00A68336 /* Exceptions for "BlockByBlock" folder in "BlockByBlock" target */,
+			);
 			path = BlockByBlock;
 			sourceTree = "<group>";
 		};
