@@ -20,7 +20,7 @@ struct HabitRepository {
             id: nil,
             userId: userId,
             title: title,
-            level: 1,
+            level: 0,
             createdAt: nil,
             updatedAt: nil
         )
