@@ -25,21 +25,30 @@ struct ContentView: View {
 
 struct MainAppView: View {
     @EnvironmentObject var authController: AuthController
-    //boiler plate landing page
+    @StateObject var habitController = HabitController()
     var body: some View {
-        VStack {
-            Text("Welcome, \(authController.profile?.displayName ?? "User")!")
-                .font(.largeTitle)
-            
-            Button("Sign Out") {
-                Task {
-                    await authController.signOut()
+        NavigationView {
+            VStack {
+                Text("Welcome, \(authController.profile?.displayName ?? "User")!")
+                    .font(.largeTitle)
+                NavigationLink(destination: CalendarView().environmentObject(habitController)) {
+                    Text("Open Calendar")
+                        .padding()
+                        .background(Color.green.opacity(0.7))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
                 }
+                Button("Sign Out") {
+                    Task {
+                        await authController.signOut()
+                    }
+                }
+                .padding()
+                .background(Color.red)
+                .foregroundColor(.white)
+                .cornerRadius(12)
             }
             .padding()
-            .background(Color.red)
-            .foregroundColor(.white)
-            .cornerRadius(12)
         }
     }
 }
