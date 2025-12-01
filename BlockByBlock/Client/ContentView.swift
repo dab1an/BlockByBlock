@@ -14,32 +14,10 @@ struct ContentView: View {
     var body: some View {
         Group {
             if authController.session != nil {
-                MainAppView()
+                HomeView()
             } else {
                 LoginView()
             }
-        }
-    }
-}
-
-
-struct MainAppView: View {
-    @EnvironmentObject var authController: AuthController
-    //boiler plate landing page
-    var body: some View {
-        VStack {
-            Text("Welcome, \(authController.profile?.displayName ?? "User")!")
-                .font(.largeTitle)
-            
-            Button("Sign Out") {
-                Task {
-                    await authController.signOut()
-                }
-            }
-            .padding()
-            .background(Color.red)
-            .foregroundColor(.white)
-            .cornerRadius(12)
         }
     }
 }
