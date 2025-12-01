@@ -8,8 +8,8 @@ final class SupabaseManager {
     
     private init() {
         self.client = SupabaseClient(
-            supabaseURL: URL(string: Secrets.supabaseUrl)!,
-            supabaseKey: Secrets.supabaseAnonKey
+            supabaseURL: URL(string: "https://djyozkgtrfshqulsytup.supabase.co")!,
+            supabaseKey: "sb_secret_zjrJcs7XKcGhrdoPi6fqOg_NpQ9Lyma"
         )
     }
 }
