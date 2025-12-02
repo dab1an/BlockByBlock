@@ -25,20 +25,20 @@ struct MainTabView: View {
     @State private var selectedTab = 1
     
     var body: some View {
-        
         VStack(spacing: 0) {
-            
             TabView(selection: $selectedTab) {
                 CalendarView()
+                    .toolbar(.hidden, for: .tabBar) // this is to avoid default apple UI tabBar
                     .tag(0)
                 
                 HomeView()
+                    .toolbar(.hidden, for: .tabBar)
                     .tag(1)
                 
                 SettingsView()
+                    .toolbar(.hidden, for: .tabBar)
                     .tag(2)
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
             
             BottomNavBar(selectedTab: $selectedTab)
         }
@@ -76,7 +76,6 @@ struct BottomNavBar: View {
             }
         }
         .padding(.vertical, 20)
-        .background(Color(UIColor.systemBackground))
         .overlay(
             Rectangle()
                 .frame(height: 1)

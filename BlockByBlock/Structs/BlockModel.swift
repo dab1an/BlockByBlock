@@ -1,6 +1,6 @@
 import Foundation
 
-struct BlockModel: Codable, Identifiable {
+struct BlockModel: Codable, Identifiable, Equatable {
     let blockName: String
     let unlockLevel: Int
     let url: String
