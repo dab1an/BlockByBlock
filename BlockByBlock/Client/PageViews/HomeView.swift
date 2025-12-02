@@ -11,15 +11,26 @@ struct HomeView: View {
     @EnvironmentObject var authController: AuthController
     
     var body: some View {
-        NavigationStack {
-            VStack {
-                Text("Welcome, \(authController.profile?.displayName ?? "User")")
-                    .font(.custom("Mojangles", size: 28))
-                    .padding()
-                
-                Spacer()
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        VStack {
+            Text("Welcome, \(authController.profile?.displayName ?? "User")")
+                .font(.custom("Mojangles", size: 28))
+                .foregroundColor(.white)
+                .padding()
+                .padding(.top, 40)
+
+            HabitListView()
+            
+            Spacer()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(
+            Image("dirt_bg")
+                .resizable()
+                .scaledToFill()
+                .padding(.top, -100)
+                .padding(.bottom, -100)
+                .ignoresSafeArea()
+        )
+        .ignoresSafeArea()
     }
 }
