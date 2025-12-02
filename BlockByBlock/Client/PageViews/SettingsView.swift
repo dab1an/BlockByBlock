@@ -11,23 +11,20 @@ struct SettingsView: View {
     @EnvironmentObject var authController: AuthController
     
     var body: some View {
-        VStack(spacing: 0) {
+        NavigationStack {
             VStack(spacing: 20) {
-
                 Text("Settings")
                     .font(.custom("Mojangles", size: 32))
                     .padding(.top, 40)
                 
                 Spacer()
                 
-                // steves face
                 Image("steveface")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200, height: 200)
                     .cornerRadius(12)
                 
-                // user display name
                 Text(authController.profile?.displayName ?? "User")
                     .font(.custom("Mojangles", size: 24))
                     .padding(.top, 20)
@@ -52,43 +49,6 @@ struct SettingsView: View {
                 .padding(.bottom, 40)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
-            // nav bar
-            HStack {
-                // calendar
-                NavigationLink(destination: Text("CalendarView")) {
-                    Image(systemName: "calendar")
-                        .font(.system(size: 28))
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity)
-                }
-                
-                // home
-                NavigationLink(destination: ContentView()) {
-                    Image(systemName: "house")
-                        .font(.system(size: 28))
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity)
-                }
-                
-                // settings
-                Button(action: {}) {
-                    Image(systemName: "gearshape")
-                        .font(.system(size: 28))
-                        .foregroundColor(.primary)
-                        .frame(maxWidth: .infinity)
-                }
-            }
-            .padding(.vertical, 20)
-            .background(Color(UIColor.systemBackground))
-            .overlay(
-                Rectangle()
-                    .frame(height: 1)
-                    .foregroundColor(Color.gray.opacity(0.3)),
-                alignment: .top
-            )
         }
-        .edgesIgnoringSafeArea(.bottom)
-        .navigationBarBackButtonHidden(true)
     }
 }
