@@ -9,7 +9,7 @@ struct HabitListView: View {
         ScrollView {
             LazyVStack(spacing: 24) {
                 ForEach(habitController.habits.sorted(by: { ($0.createdAt ?? .distantPast) < ($1.createdAt ?? .distantPast) })) { habit in
-                    HabitCardView(habit: habit)
+                    HabitCardView(habit: habit, habitController: habitController)
                         .padding(.horizontal, 24)
                 }
             }
