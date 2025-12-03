@@ -35,7 +35,7 @@ struct LoginView: View {
                                 .font(.custom("Mojangles", size: 18))
                                 .foregroundColor(.white)
                                 .shadow(color: .black, radius: 1, x: 2, y: 2)
-                            SecureField("", text: $email, prompt: Text("Email").foregroundColor(.gray))
+                            TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray))
                                 .font(.custom("Mojangles", size: 16))
                                 .foregroundColor(.white)
                                 .padding()

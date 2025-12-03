@@ -32,22 +32,14 @@ struct SettingsView: View {
                     }
                 })
                 {
-                    ZStack {
-                        Image("Button 2")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(height: 50)
-
-                        Text("LOG OUT")
-                            .font(.custom("Mojangles", size: 20))
-                            .foregroundColor(.white)
-                            .shadow(color: .black.opacity(0.5), radius: 1, x: 1, y: 1)
-                    }
+                    Text("LOG OUT")
+                        .font(.custom("Mojangles", size: 20))
+                        .foregroundColor(.white)
+                        .shadow(color: .black.opacity(0.5), radius: 1, x: 1, y: 1)
                 }
-                .buttonStyle(PlainButtonStyle())
+                .buttonStyle(CustomMinecraftButtonStyle(unclickedImage: "Unclicked", clickedImage: "Clicked"))
                 .frame(maxWidth: 200)
                 .padding(.bottom, 40)
-
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(
@@ -60,6 +52,23 @@ struct SettingsView: View {
             )
             .ignoresSafeArea()
             .padding(.top, 20)
+        }
+    }
+}
+struct CustomMinecraftButtonStyle: ButtonStyle {
+    let unclickedImage: String
+    let clickedImage: String
+    let height: CGFloat = 50
+    
+    func makeBody(configuration: Configuration) -> some View {
+        ZStack {
+            Image(configuration.isPressed ? clickedImage : unclickedImage)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: height)
+            configuration.label
+                .offset(y: configuration.isPressed ? 2 : 0)
         }
     }
 }
