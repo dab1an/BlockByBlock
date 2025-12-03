@@ -10,108 +10,151 @@ struct SignUpView: View {
     @State private var errorMessage: String = ""
 
     var body: some View {
-        VStack(spacing: 40) {
-            Spacer()
-
-            Text("Block by Block")
-                .font(.custom("Mojangles", size: 28))
-                .multilineTextAlignment(.center)
-                .padding(.top, 40)
-
-            VStack(spacing: 32) {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Name")
-                        .font(.system(size: 18, weight: .medium))
-                    TextField("FirstName LastName", text: $fullName)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
-                }
-
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Email")
-                        .font(.system(size: 18, weight: .medium))
-                    TextField("Email", text: $email)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
-                        .textInputAutocapitalization(.never)
-                        .keyboardType(.emailAddress)
-                }
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Password")
-                        .font(.system(size: 18, weight: .medium))
-                    SecureField("Password", text: $password)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
-                }
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Confirm Password")
-                        .font(.system(size: 18, weight: .medium))
-                    SecureField("Confirm Password", text: $confirmPassword)
-                        .padding()
-                        .background(Color(.systemGray6))
-                        .cornerRadius(12)
-                }
-
-                if !errorMessage.isEmpty {
-                    Text(errorMessage)
-                        .foregroundColor(.red)
-                        .font(.system(size: 14))
-                }
-                // call authcontroller sign up
-                Button(action: {
-                    guard password == confirmPassword else {
-                        errorMessage = "Passwords do not match"
-                        return
-                    }
+        ZStack {
+                    Image("FallBackground")
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .edgesIgnoringSafeArea(.all)
                     
-                    guard !fullName.isEmpty else {
-                        errorMessage = "Please enter your name"
-                        return
-                    }
-                    
-                    errorMessage = ""
-                    
-                    Task {
-                        isLoading = true
-                        await authController.signUp(
-                            email: email,
-                            password: password,
-                            displayName: fullName
-                        )
-                        isLoading = false
-                    }
-                }) {
-                    if isLoading {
-                        ProgressView()
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                    } else {
-                        Text("Sign Up")
-                            .frame(maxWidth: .infinity)
-                            .padding()
+                    VStack(spacing: 40) {
+                        Spacer()
+                        Image("MinecraftLogo")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 40)
+                            .padding(.top, 40)
+
+                        VStack(spacing: 32) {
+                            
+                            // NAME FIELD
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("NAME:")
+                                    .font(.custom("Mojangles", size: 18))
+                                    .foregroundColor(.white)
+                                    .shadow(color: .black, radius: 1, x: 2, y: 2)
+                                
+
+                                TextField("", text: $fullName, prompt: Text("First Last").foregroundColor(.gray))
+                                    .font(.custom("Mojangles", size: 16))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.black.opacity(0.85))
+                                    .cornerRadius(4)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .stroke(Color.white, lineWidth: 2)
+                                    )
+                            }
+
+                            // EMAIL FIELD
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("EMAIL:")
+                                    .font(.custom("Mojangles", size: 18))
+                                    .foregroundColor(.white)
+                                    .shadow(color: .black, radius: 1, x: 2, y: 2)
+                                
+                                TextField("", text: $email, prompt: Text("Email").foregroundColor(.gray))
+                                    .font(.custom("Mojangles", size: 16))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.black.opacity(0.85))
+                                    .cornerRadius(4)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .stroke(Color.white, lineWidth: 2)
+                                    )
+                                    .textInputAutocapitalization(.never)
+                                    .keyboardType(.emailAddress)
+                            }
+                            
+                            // PASSWORD FIELD
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("PASSWORD:")
+                                    .font(.custom("Mojangles", size: 18))
+                                    .foregroundColor(.white)
+                                    .shadow(color: .black, radius: 1, x: 2, y: 2)
+                                
+                                SecureField("", text: $password, prompt: Text("Password").foregroundColor(.gray))
+                                    .font(.custom("Mojangles", size: 16))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.black.opacity(0.85))
+                                    .cornerRadius(4)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .stroke(Color.white, lineWidth: 2)
+                                    )
+                            }
+                            
+                            // CONFIRM PASSWORD FIELD
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text("CONFIRM PASSWORD:")
+                                    .font(.custom("Mojangles", size: 18))
+                                    .foregroundColor(.white)
+                                    .shadow(color: .black, radius: 1, x: 2, y: 2)
+
+                                SecureField("", text: $confirmPassword, prompt: Text("Confirm Password").foregroundColor(.gray))
+                                    .font(.custom("Mojangles", size: 16))
+                                    .foregroundColor(.white)
+                                    .padding()
+                                    .background(Color.black.opacity(0.85))
+                                    .cornerRadius(4)
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 4)
+                                            .stroke(Color.white, lineWidth: 2)
+                                    )
+                            }
+
+                            if !errorMessage.isEmpty {
+                                Text(errorMessage)
+                                    .foregroundColor(.red)
+                                    .font(.custom("Mojangles", size: 14))
+                                    .shadow(color: .black, radius: 1)
+                            }
+                            
+                            // call authcontroller sign up
+                            Button(action: {
+                                guard password == confirmPassword else {
+                                    errorMessage = "Passwords do not match"
+                                    return
+                                }
+                                
+                                guard !fullName.isEmpty else {
+                                    errorMessage = "Please enter your name"
+                                    return
+                                }
+                                
+                                errorMessage = ""
+                                
+                                Task {
+                                    isLoading = true
+                                    await authController.signUp(
+                                        email: email,
+                                        password: password,
+                                        displayName: fullName
+                                    )
+                                    isLoading = false
+                                }
+                            }) {
+                                if isLoading {
+                                    ProgressView()
+                                        .frame(maxWidth: .infinity)
+                                } else {
+                                    Text("SIGN UP")
+                                        .frame(maxWidth: .infinity)
+                                }
+                            }
+                            .buttonStyle(MinecraftButtonStyle())
+                            .disabled(isLoading)
+                        }
+                        .padding()
+                        .padding(.horizontal, 24)
+
+                        Spacer()
                     }
                 }
-                .background(Color(.systemGray4))
-                .foregroundColor(.black)
-                .cornerRadius(12)
-                .disabled(isLoading)
             }
-            .padding()
-            .background(
-                RoundedRectangle(cornerRadius: 20)
-                    .stroke(Color(.systemGray4), lineWidth: 2)
-            )
-            .padding(.horizontal, 24)
-
-            Spacer()
         }
-    }
-}
 
 #Preview {
     SignUpView()
