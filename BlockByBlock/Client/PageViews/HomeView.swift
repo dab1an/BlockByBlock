@@ -11,26 +11,32 @@ struct HomeView: View {
     @EnvironmentObject var authController: AuthController
     
     var body: some View {
-        VStack {
-            Text("Welcome, \(authController.profile?.displayName ?? "User")")
-                .font(.custom("Mojangles", size: 28))
-                .foregroundColor(.white)
-                .padding()
-                .padding(.top, 40)
-
-            HabitListView()
-            
-            Spacer()
+        NavigationStack {
+            VStack(spacing: 0) {
+                // week view with grass background at the top
+                WeekView()
+                    .ignoresSafeArea(edges: .top)
+                
+                // main content with dirt background - scrollable
+                ScrollView {
+                    VStack(spacing: 0) {
+                        Text("Welcome, \(authController.profile?.displayName ?? "User")")
+                            .font(.custom("Mojangles", size: 28))
+                            .foregroundColor(.white)
+                            .padding(.horizontal)
+                            .padding(.top, 5)
+                        
+                        HabitListView()
+                    }
+                }
+                .background(
+                    Image("dirt_bg")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                )
+            }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(
-            Image("dirt_bg")
-                .resizable()
-                .scaledToFill()
-                .padding(.top, -100)
-                .padding(.bottom, -100)
-                .ignoresSafeArea()
-        )
-        .ignoresSafeArea()
+        .ignoresSafeArea(edges: .top)
     }
 }
