@@ -29,7 +29,16 @@ struct HabitListView: View {
                 .padding(.horizontal, 24)
             } else {
                 //otherwise we show button on the left. and iterate through habits
-                CreateHabitButton()
+                HStack(alignment: .center, spacing: 12) {
+                    CreateHabitButton()
+                    
+                    Spacer()
+                    
+                    RefreshHabitsButton(habitController: habitController)
+                            .padding(.horizontal, 24)
+                }
+                
+                // using lazy in order to only render what is in view
                 LazyVStack(spacing: 24) {
                     ForEach(habitController.habits.sorted(by: { ($0.createdAt ?? .distantPast) < ($1.createdAt ?? .distantPast) })) { habit in
                         HabitCardView(habit: habit, habitController: habitController)
