@@ -1,10 +1,3 @@
-//
-//  SettingsView.swift
-//  BlockByBlock
-//
-//  Created by Richard Brito on 12/1/25.
-//
-
 import SwiftUI
 
 struct SettingsView: View {
@@ -16,6 +9,7 @@ struct SettingsView: View {
                 Text("Settings")
                     .font(.custom("Mojangles", size: 32))
                     .padding(.top, 40)
+                    .foregroundColor(.white)
                 
                 Spacer()
                 
@@ -28,27 +22,44 @@ struct SettingsView: View {
                 Text(authController.profile?.displayName ?? "User")
                     .font(.custom("Mojangles", size: 24))
                     .padding(.top, 20)
+                    .foregroundColor(.white)
                 
                 Spacer()
                 
-                Button("Log out") {
+                Button(action: {
                     Task {
                         await authController.signOut()
                     }
+                })
+                {
+                    ZStack {
+                        Image("Button 2")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: 50)
+
+                        Text("LOG OUT")
+                            .font(.custom("Mojangles", size: 20))
+                            .foregroundColor(.white)
+                            .shadow(color: .black.opacity(0.5), radius: 1, x: 1, y: 1)
+                    }
                 }
-                .font(.custom("Mojangles", size: 20))
+                .buttonStyle(PlainButtonStyle())
                 .frame(maxWidth: 200)
-                .padding()
-                .background(Color.gray.opacity(0.3))
-                .foregroundColor(.black)
-                .cornerRadius(8)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 8)
-                        .stroke(Color.gray, lineWidth: 1)
-                )
                 .padding(.bottom, 40)
+
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(
+                Image("nether_bg")
+                    .resizable()
+                    .scaledToFill()
+                    .padding(.top, -100)
+                    .padding(.bottom, -100)
+                    .ignoresSafeArea()
+            )
+            .ignoresSafeArea()
+            .padding(.top, 20)
         }
     }
 }
