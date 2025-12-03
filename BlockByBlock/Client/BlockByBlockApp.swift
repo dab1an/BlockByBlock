@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct BlockByBlockApp: App {
     @StateObject private var authController = AuthController()
+    @StateObject private var habitController = HabitController()
     // load fonts onto app launch
     init() {
         FontLoader.loadCustomFonts()
@@ -19,6 +20,7 @@ struct BlockByBlockApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(authController)
+                .environmentObject(habitController)
         }
     }
 }
