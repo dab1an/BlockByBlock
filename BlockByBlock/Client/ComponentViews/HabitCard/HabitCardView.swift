@@ -14,7 +14,7 @@ struct HabitCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            HabitHeaderView(currentHabit: $currentHabit)
+            HabitHeaderView(currentHabit: $currentHabit, habitController: habitController)
             BlockCarouselView(currentHabit: $currentHabit, blockController: blockController)
             if !currentHabit.canCheckIn {
                 XPBarView(level: currentHabit.level)
