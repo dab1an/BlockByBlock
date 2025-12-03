@@ -71,4 +71,26 @@ struct HabitRepository {
             .execute()
             .value
     }
+    
+    // updates the level of a habit (+1) and the time the habit was last updated (leveled up)
+    func updateHabitLevelAndCheckInTime(habitId: UUID, level: Int) async throws -> HabitModel {
+        let now = Date()
+
+        let payload = HabitUpdatePayload(level: level, updated_at: now)
+
+        return try await client
+            .from("habit")
+            .update(payload)
+            .eq("id", value: habitId)
+            .select()
+            .single()
+            .execute()
+            .value
+    }
+    
+    // needed to update two values of two different types (trying to avoid making two seperate calls)
+    struct HabitUpdatePayload: Encodable {
+        let level: Int
+        let updated_at: Date
+    }
 }

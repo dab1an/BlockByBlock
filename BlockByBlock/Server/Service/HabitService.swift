@@ -26,16 +26,16 @@ struct HabitService {
     
     // update habit level by one, update the check in time
     func completeDailyHabit(habit: HabitModel) async throws -> HabitModel{
-        
         if habit.canCheckIn == false {
             throw NSError(domain: "HabitError", code: 2, userInfo: [
                 NSLocalizedDescriptionKey: "Habit cannot be checked in at this time."
             ])
         }
         
-        let updated_habit = try await repository.updateHabitLevel(habitId: habit.id!, level: habit.level + 1)
+        // update level + updated_at
+        let updatedHabit = try await repository.updateHabitLevelAndCheckInTime(habitId: habit.id!, level: habit.level + 1)
         
-        return try await repository.updateHabitCheckInTime(habitId: updated_habit.id!)
+        return updatedHabit
     }
     
     // delete habit via model
