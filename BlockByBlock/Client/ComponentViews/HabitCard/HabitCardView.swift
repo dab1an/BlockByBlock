@@ -17,7 +17,10 @@ struct HabitCardView: View {
             HabitHeaderView(currentHabit: $currentHabit, habitController: habitController)
             BlockCarouselView(currentHabit: $currentHabit, blockController: blockController)
             if !currentHabit.canCheckIn {
-                XPBarView(level: currentHabit.level)
+                XPBarView(
+                    level: currentHabit.level,
+                    progress: currentHabit.progressPercent
+                    )
             }
             if currentHabit.canCheckIn {
                 CheckInButton(currentHabit: $currentHabit, habitController: habitController, blockController: blockController)
