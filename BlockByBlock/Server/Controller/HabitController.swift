@@ -47,12 +47,18 @@ class HabitController: ObservableObject {
         }
     }
     
-    func completeDailyHabit(habit: HabitModel) async {
+    @MainActor
+    func completeDailyHabit(habit: HabitModel) async -> HabitModel? {
         do {
-            try await service.completeDailyHabit(habit: habit)
-        }
-        catch{
+            let updatedHabit = try await service.completeDailyHabit(habit: habit)
+            // update the habit in the habits array
+            if let index = habits.firstIndex(where: { $0.id == updatedHabit.id }) {
+                habits[index] = updatedHabit
+            }
+            return updatedHabit
+        } catch {
             print("Error completing daily habit:", error)
+            return nil
         }
     }
     
